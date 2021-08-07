@@ -51,6 +51,19 @@ The docker-compose.override.yml file contains the base configuration for all ima
 
 docker-compose up -- to run containers
 
+# EntityFramework Core
+### Generate migration scripts in Migrations project
+> dotnet ef migrations add <MigrationName> --startup-project <sourceproject> --project <projectwheretocreateMigration>
+
+#### multiple providers
+https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/providers?tabs=dotnet-core-cli
+
+### database scaffolding - generating C# code from existing database
+https://docs.microsoft.com/en-us/ef/core/managing-schemas/scaffolding?tabs=dotnet-core-cli
+
+> dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Microsoft.eShopOnContainers.Services.OrderingDb" Microsoft.EntityFrameworkCore.SqlServer --output-dir ./Ordering --context OrderingDbContext
+
+
 ## References:
 1. https://github.com/dotnet-architecture/eShopOnContainers/wiki/Windows-setup
 2. 
