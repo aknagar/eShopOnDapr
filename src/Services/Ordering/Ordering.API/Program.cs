@@ -30,6 +30,7 @@ namespace Microsoft.eShopOnContainers.Services.Ordering.API
                 Log.Information("Configuring web host ({ApplicationContext})...", AppName);
                 var host = BuildWebHost(configuration, args);
 
+                /*
                 Log.Information("Applying migrations ({ApplicationContext})...", AppName);
                 host.MigrateDbContext<OrderingContext>((context, services) =>
                 {
@@ -41,6 +42,7 @@ namespace Microsoft.eShopOnContainers.Services.Ordering.API
                         .SeedAsync(context, env, settings, logger)
                         .Wait();
                 });
+                */
 
                 Log.Information("Starting web host ({ApplicationContext})...", AppName);
                 host.Run();
