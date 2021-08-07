@@ -20,11 +20,6 @@ Password: Pass@word1
 * http://localhost:5104
 * http://host.docker.internal:5104/
 
-
-## References:
-1. https://github.com/dotnet-architecture/eShopOnContainers/wiki/Windows-setup
-2. 
-
 ### Swagger UI
 * http://localhost:5101
 * http://host.docker.internal:5101
@@ -33,6 +28,7 @@ Password: Pass@word1
 * http://localhost:5340
 * http://host.docker.internal:5340
 
+## Run on Kubernetes
 initialize dapr in Kubernetes 
 dapr init -k 
 
@@ -54,3 +50,7 @@ The docker-compose.yml file contains the definition of all the images needed to 
 The docker-compose.override.yml file contains the base configuration for all images of the previous file.
 
 docker-compose up -- to run containers
+
+## References:
+1. https://github.com/dotnet-architecture/eShopOnContainers/wiki/Windows-setup
+2. 
