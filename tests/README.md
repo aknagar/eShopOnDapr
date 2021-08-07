@@ -1,0 +1,1 @@
+All test projects goes in this folder as per Clean Architecture guidance
