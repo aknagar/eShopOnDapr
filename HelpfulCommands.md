@@ -25,7 +25,13 @@ Password: Pass@word1
 1. https://github.com/dotnet-architecture/eShopOnContainers/wiki/Windows-setup
 2. 
 
+### Swagger UI
+* http://localhost:5101
+* http://host.docker.internal:5101
 
+### Monitoring
+* http://localhost:5340
+* http://host.docker.internal:5340
 
 initialize dapr in Kubernetes 
 dapr init -k 
