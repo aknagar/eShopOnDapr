@@ -68,16 +68,24 @@ https://docs.microsoft.com/en-us/ef/core/managing-schemas/scaffolding?tabs=dotne
 
 ### EF CLI
 https://docs.microsoft.com/en-us/ef/core/cli/dotnet
+
+> dotnet ef database drop --dry-run 
+
 > dotnet ef database drop
- dotnet ef database update -- creates new database and applies migration
-	dotnet ef database update --connection "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Microsoft.eShopOnContainers.Services.OrderingDb"
-dotnet ef dbcontext info 
+
+> dotnet ef database update -- creates new database and applies migration
+
+> dotnet ef database update --connection "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Microsoft.eShopOnContainers.Services.OrderingDb"
+
+> dotnet ef dbcontext info 
 	Provider name: Microsoft.EntityFrameworkCore.SqlServer
 	Database name: Microsoft.eShopOnContainers.Services.OrderingDb
 	Data source: (localdb)\MSSQLLocalDB
 	Options: MigrationsAssembly=Ordering.API
->dotnet ef dbcontext list
+
+> dotnet ef dbcontext list
 	Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.OrderingContext
+	
 > dotnet ef dbcontext script -- creates sql schema script based on dbcontext
 
 ## References:
