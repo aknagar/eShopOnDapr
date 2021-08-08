@@ -28,22 +28,25 @@ Password: Pass@word1
 * http://localhost:5340
 * http://host.docker.internal:5340
 
+### Zipkin
+* http://localhost:9411
+
 ## Run on Kubernetes
-initialize dapr in Kubernetes 
+### initialize dapr in Kubernetes 
 dapr init -k 
 
-# install manifest files on Kubernetes
+### install manifest files on Kubernetes
 >kubectl apply -f manifest/
 
-# list of containers running in docker
-docker ps
+### list of containers running in docker
+> docker ps
 
-# get all kubernetes pods
-kubectl get pods --all-namespaces
+### get all kubernetes pods
+> kubectl get pods --all-namespaces
 
-# set up Startup project is equivalent to changing the directory in terminal
-# In VS 2019, we select set as Startup project
-# in vscode, we simply change cwd directory = <folder for startup project> in launch.json
+#### set up Startup project is equivalent to changing the directory in terminal
+In VS 2019, we select set as Startup project
+In vscode, we simply change cwd directory = <folder for startup project> in launch.json
 
 The docker-compose.yml file contains the definition of all the images needed to run eShopOnDapr
 
@@ -51,7 +54,7 @@ The docker-compose.override.yml file contains the base configuration for all ima
 
 docker-compose up -- to run containers
 
-# EntityFramework Core
+### EntityFramework Core
 ### Generate migration scripts in Migrations project
 > dotnet ef migrations add <MigrationName> --startup-project <sourceproject> --project <projectwheretocreateMigration>
 
