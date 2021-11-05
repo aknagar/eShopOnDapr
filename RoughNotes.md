@@ -24,11 +24,12 @@ Password: Pass@word1
 * http://localhost:5101
 * http://host.docker.internal:5101
 
-### Monitoring
+### Seq: Logs Monitoring
 * http://localhost:5340
 * http://host.docker.internal:5340
 
-### Zipkin
+### Zipkin : Latency diagnosis
+Zipkin is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in service architectures. 
 * http://localhost:9411
 
 ## Run on Kubernetes
