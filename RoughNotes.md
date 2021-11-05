@@ -36,6 +36,9 @@ Zipkin is a distributed tracing system. It helps gather timing data needed to tr
 ### initialize dapr in Kubernetes 
 dapr init -k 
 
+### install Helpm
+choco install kubernetes-helm -s="https://community.chocolatey.org/api/v2/"
+
 ### install manifest files on Kubernetes
 >kubectl apply -f manifest/
 
