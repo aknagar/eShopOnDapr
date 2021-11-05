@@ -18,7 +18,7 @@ services:
     image: openzipkin/zipkin-slim
 
   basket-api:
-    image: ${REGISTRY:-eshop}/basket.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${REGISTRY:-eshopdapr}/basket.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Basket/Basket.API/Dockerfile
@@ -27,13 +27,19 @@ services:
       - redis
 
   basket-api-dapr:
-    image: "daprio/daprd:1.0.0"
+    image: "daprio/daprd:1.4.0"
     network_mode: "service:basket-api"
     depends_on:
       - basket-api
 
+  blazor-client:
+    image: ${REGISTRY:-eshopdapr}/blazor.client:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/Web/BlazorClient.Host/Dockerfile
+
   catalog-api:
-    image: ${REGISTRY:-eshop}/catalog.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${REGISTRY:-eshopdapr}/catalog.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
@@ -41,13 +47,13 @@ services:
       - sqldata
 
   catalog-api-dapr:
-    image: "daprio/daprd:1.0.0"
+    image: "daprio/daprd:1.4.0"
     network_mode: "service:catalog-api"
     depends_on:
       - catalog-api
 
   identity-api:
-    image: ${REGISTRY:-eshop}/identity.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${REGISTRY:-eshopdapr}/identity.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Identity/Identity.API/Dockerfile
@@ -55,7 +61,7 @@ services:
       - sqldata
 
   ordering-api:
-    image: ${REGISTRY:-eshop}/ordering.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${REGISTRY:-eshopdapr}/ordering.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Ordering/Ordering.API/Dockerfile
@@ -63,25 +69,25 @@ services:
       - sqldata
 
   ordering-api-dapr:
-    image: "daprio/daprd:1.0.0"
+    image: "daprio/daprd:1.4.0"
     network_mode: "service:ordering-api"
     depends_on:
       - ordering-api
 
   payment-api:
-    image: ${REGISTRY:-eshop}/payment.api:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${REGISTRY:-eshopdapr}/payment.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Payment/Payment.API/Dockerfile
 
   payment-api-dapr:
-    image: "daprio/daprd:1.0.0"
+    image: "daprio/daprd:1.4.0"
     network_mode: "service:payment-api"
     depends_on:
       - payment-api
 
   webshoppingagg:
-    image: ${REGISTRY:-eshop}/webshoppingagg:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${REGISTRY:-eshopdapr}/webshoppingagg:${TAG:-latest}
     build:
       context: .
       dockerfile: src/ApiGateways/Aggregators/Web.Shopping.HttpAggregator/Dockerfile
@@ -93,7 +99,7 @@ services:
       - sqldata
 
   webshoppingagg-dapr:
-    image: "daprio/daprd:1.0.0"
+    image: "daprio/daprd:1.4.0"
     network_mode: "service:webshoppingagg"
     depends_on:
       - webshoppingagg
@@ -102,24 +108,13 @@ services:
     image: envoyproxy/envoy:v1.14.2
 
   webshoppingapigw-dapr:
-    image: "daprio/daprd:1.0.0"
+    image: "daprio/daprd:1.4.0"
     network_mode: "service:webshoppingapigw"
     depends_on:
       - webshoppingapigw
 
-  webspa:
-    image: ${REGISTRY:-eshop}/webspa:${PLATFORM:-linux}-${TAG:-latest}
-    build:
-      context: .
-      dockerfile: src/Web/WebSPA/Dockerfile
-    depends_on:
-      - webshoppingagg
-
   webstatus:
-    image: ${REGISTRY:-eshop}/webstatus:${PLATFORM:-linux}-${TAG:-latest}
-    build:
-      context: .
-      dockerfile: src/Web/WebStatus/Dockerfile
+    image: xabarilcoding/healthchecksui:5.0.0
 
   dapr-placement:
     image: "daprio/dapr:1.0.0"
