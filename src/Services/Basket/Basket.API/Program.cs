@@ -1,66 +1,57 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Serilog;
+﻿var appName = "Basket API";
+var builder = WebApplication.CreateBuilder();
 
-namespace Microsoft.eShopOnDapr.Services.Basket.API
+builder.AddCustomSerilog();
+builder.AddCustomSwagger();
+builder.AddCustomMvc();
+builder.AddCustomAuthentication();
+builder.AddCustomAuthorization();
+builder.AddCustomHealthChecks();
+builder.AddCustomApplicationServices();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        private const string AppName = "Basket.API";
+    app.UseDeveloperExceptionPage();
+    app.UseCustomSwagger();
+}
 
-        public static int Main(string[] args)
-        {
-            var configuration = GetConfiguration();
-            var seqServerUrl = configuration["SeqServerUrl"];
+var pathBase = builder.Configuration["PATH_BASE"];
+if (!string.IsNullOrEmpty(pathBase))
+{
+    app.UsePathBase(pathBase);
+}
 
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
-                .WriteTo.Console()
-                .WriteTo.Seq(seqServerUrl)
-                .Enrich.WithProperty("ApplicationName", AppName)
-                .CreateLogger();
+app.UseCloudEvents();
 
-            try
-            {
-                Log.Information("Configuring web host ({ApplicationName})...", AppName);
-                var host = CreateHostBuilder(args).Build();
+app.UseAuthentication();
+app.UseAuthorization();
 
-                Log.Information("Starting web host ({ApplicationName})...", AppName);
-                host.Run();
+app.UseCors("CorsPolicy");
+app.MapDefaultControllerRoute();
+app.MapControllers();
+app.MapSubscribeHandler();
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "Host terminated unexpectedly ({ApplicationName})...", AppName);
-                return 1;
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-
-        private static IConfiguration GetConfiguration()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables();
-
-            return builder.Build();
-        }
-    }
+try
+{
+    app.Logger.LogInformation("Starting web host ({ApplicationName})...", appName);
+    app.Run();
+}
+catch (Exception ex)
+{
+    app.Logger.LogCritical(ex, "Host terminated unexpectedly ({ApplicationName})...", appName);
+}
+finally
+{
+    Serilog.Log.CloseAndFlush();
 }
