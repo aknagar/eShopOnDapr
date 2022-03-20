@@ -1,5 +1,5 @@
 ### Default credentials
-User: demouser@microsoft.com
+User: alice
 Password: Pass@word1
 
 ## Local-host
@@ -36,11 +36,31 @@ Zipkin is a distributed tracing system. It helps gather timing data needed to tr
 ### initialize dapr in Kubernetes 
 dapr init -k 
 
-### install Helpm
+### install Helm
 choco install kubernetes-helm -s="https://community.chocolatey.org/api/v2/"
 
-### install manifest files on Kubernetes
->kubectl apply -f manifest/
+C:\Users\aknagar\source\repos\eShopOnDapr\deploy\k8s\helm> helm install helm install myeshop .
+
+helm uninstall myeshop
+
+http://localhost:30007/healthchecks-ui
+
+### Kubernetes Dashboard
+
+To install the Kubernetes Dashboard, open a PowerShell terminal, and run the following:
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
+
+This command downloads the deployment manifest and applies it to your cluster
+
+kubectl get pods --namespace kubernetes-dashboard
+
+https://jpinjpblog.wordpress.com/2020/11/17/adding-kubernetes-dashboard-to-docker-for-desktop-running-kubernetes/
+
+kubectl proxy
+
+
+
 
 ### list of containers running in docker
 > docker ps
