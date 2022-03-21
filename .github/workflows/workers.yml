@@ -16,6 +16,6 @@ jobs:
         username: $GITHUB_USER
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Worker Docker image
-      run: docker build ./src/ --file ./src/Keda.Samples.Dotnet.OrderProcessor/Dockerfile --tag ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest
+      run: docker build ./src/ --file ./src/Workers/Ver-2022-03-01/Keda.Samples.Dotnet.OrderProcessor/Dockerfile --tag ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest
     - name: Push the Worker Docker image
       run: docker push ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest
