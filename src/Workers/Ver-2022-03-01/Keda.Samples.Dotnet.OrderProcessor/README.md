@@ -23,7 +23,16 @@ kubectl get namespaces
 
 Run an image in kubectl
 kubectl run myapp --image=ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest
-
 kubectl describe pod myapp
 
 https://www.containiq.com/post/kubernetes-imagepullbackoff
+
+## Kubernetes dashboards
+
+https://github.com/kubernetes/dashboard
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+
+kubectl proxy
+
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
