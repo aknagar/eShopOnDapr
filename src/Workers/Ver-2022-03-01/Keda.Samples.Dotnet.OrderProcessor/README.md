@@ -21,3 +21,9 @@ kubectl get pods --namespace worker-sample
 
 kubectl get namespaces
 
+Run an image in kubectl
+kubectl run myapp --image=ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest
+
+kubectl describe pod myapp
+
+https://www.containiq.com/post/kubernetes-imagepullbackoff
