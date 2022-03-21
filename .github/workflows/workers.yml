@@ -1,0 +1,21 @@
+name: Push Worker Docker Images
+on:
+  push:
+    branches: [ main, debug ]
+
+jobs:
+  order_processor:
+    runs-on: ubuntu-latest
+    name: Order Processor
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Login
+      uses: docker/login-action@v1.6.0
+      with:
+        registry: ghcr.io
+        username: aknagar
+        password: ${{ secrets.CONTAINER_REGISTRY_KEY }}
+    - name: Build the Worker Docker image
+      run: docker build ./src/ --file ./src/Keda.Samples.Dotnet.OrderProcessor/Dockerfile --tag ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest
+    - name: Push the Worker Docker image
+      run: docker push ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest

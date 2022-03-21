@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: order-processor
-          image: ghcr.io/kedacore/sample-dotnet-worker-servicebus-queue:eshop/basket.api:linux-latest
+          image: ghcr.io/aknagar/sample-dotnet-worker-servicebus-queue:latest
           env:
           - name: KEDA_SERVICEBUS_AUTH_MODE
             value: ConnectionString
