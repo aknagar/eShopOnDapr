@@ -1,0 +1,13 @@
+az --version
+
+# azure login
+az login
+
+# set azure subscription
+az account list
+
+# create a resource group
+az group create --name eshopOnDapr --location eastus
+
+# deploy to a resource group
+az deployment group create --resource-group eshopOnDapr --template-file main.bicep
