@@ -55,7 +55,10 @@ This command downloads the deployment manifest and applies it to your cluster
 
 kubectl get pods --namespace kubernetes-dashboard
 
-https://jpinjpblog.wordpress.com/2020/11/17/adding-kubernetes-dashboard-to-docker-for-desktop-running-kubernetes/
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+Get Token to access dashboard
+kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
 
 kubectl proxy
 
@@ -111,6 +114,10 @@ https://docs.microsoft.com/en-us/ef/core/cli/dotnet
 	Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.OrderingContext
 	
 > dotnet ef dbcontext script -- creates sql schema script based on dbcontext
+
+## Azure KeyVault on Kubernetes
+https://azure.github.io/secrets-store-csi-driver-provider-azure/docs/demos/standard-walkthrough/
+
 
 ## References:
 1. https://github.com/dotnet-architecture/eShopOnContainers/wiki/Windows-setup
